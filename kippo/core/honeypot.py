@@ -63,7 +63,15 @@ class HoneyPotShell(object):
         for i in [x.strip() for x in line.strip().split(';')[:10]]:
             if not len(i):
                 continue
-            self.cmdpending.append(i)
+            # Implement ugly alias function.
+            if i == "la":
+                self.cmdpending.append("ls -a")
+            elif i == "ll":
+                self.cmdpending.append("ls -l -a")
+            elif i == "l":
+                self.cmdpending.append("ls")
+            else:
+                self.cmdpending.append(i)
         if len(self.cmdpending):
             self.runCommand()
         else:
