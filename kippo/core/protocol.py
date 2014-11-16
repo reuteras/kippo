@@ -44,9 +44,17 @@ class HoneyPotBaseProtocol(insults.TerminalProtocol):
         transport = self.terminal.transport.session.conn.transport
 
         self.realClientIP = transport.transport.getPeer().host
+        self.realClientPort = transport.transport.getPeer().port
         self.clientVersion = transport.otherVersionString
         self.logintime = transport.logintime
         self.ttylog_file = transport.ttylog_file
+
+        # Hack to get ip
+        import socket
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("gmail.com", 80))
+        self.kippoIP = s.getsockname()[0]
+        s.close()
 
         # source IP of client in user visible reports (can be fake or real)
         cfg = config()
