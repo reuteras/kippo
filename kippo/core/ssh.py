@@ -288,7 +288,7 @@ def getDSAKeys():
         print "Generating new DSA keypair..."
         from Crypto.PublicKey import DSA
         from twisted.python import randbytes
-        KEY_LENGTH = 1024
+        KEY_LENGTH = 2048
         dsaKey = DSA.generate(KEY_LENGTH, randbytes.secureRandom)
         publicKeyString = keys.Key(dsaKey).public().toString('openssh')
         privateKeyString = keys.Key(dsaKey).toString('openssh')
