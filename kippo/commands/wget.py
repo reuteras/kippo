@@ -87,7 +87,11 @@ class command_wget(HoneyPotCommand):
             self.exit()
             return
 
-        self.url = url
+        if re.match("^[-._a-zA-Z0-9&?%:/=~@+;]+$", url):
+            self.url = url
+        else:
+            self.url = "http://disney.com/"
+            url = "http://disney.com/"
         self.limit_size = 0
         cfg = self.honeypot.env.cfg
         if cfg.has_option('honeypot', 'download_limit_size'):
@@ -153,8 +157,13 @@ commands['/usr/bin/wget'] = command_wget
 # from http://code.activestate.com/recipes/525493/
 class HTTPProgressDownloader(client.HTTPDownloader):
     def __init__(self, wget, fakeoutfile, url, outfile, headers=None):
+        cfg = wget.honeypot.env.cfg
+        if cfg.has_option('honeypot', 'wget_version_string'):
+            wgetVersionString = cfg.get('honeypot', 'wget_version_string')
+        else:
+            wgetVersionString = 'Wget/1.11.4'
         client.HTTPDownloader.__init__(self, url, outfile, headers=headers,
-            agent='Wget/1.11.4')
+            agent=wgetVersionString)
         self.status = None
         self.wget = wget
         self.fakeoutfile = fakeoutfile
