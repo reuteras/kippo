@@ -12,13 +12,13 @@
 # Port to listen for incoming SSH connections.
 #
 # (default: 2222)
-ssh_port = 2222
+ssh_port = 22
 
 # Hostname for the honeypot. Displayed by the shell prompt of the virtual
 # environment.
 #
-# (default: svr03)
-hostname = svr03
+# (default: nas3)
+hostname = nas3
 
 # Directory where to save log files in.
 #
@@ -30,12 +30,12 @@ log_path = log
 # (default: dl)
 download_path = dl
 
-# Maximum file size (in bytes) for downloaded files to be stored in 'download_path'.
-# A value of 0 means no limit. If the file size is known to be too big from the start,
-# the file will not be stored on disk at all.
+# Maximum file size for downloaded files. A value of 0 means no limit.
+# If the file size is known to be too big from the start, the file will not be
+# stored on disk at all.
 #
 # (default: 0)
-#download_limit_size = 10485760
+download_limit_size = 10000000
 
 # Directory where virtual file contents are kept in.
 #
@@ -100,7 +100,7 @@ exec_enabled = true
 # connection as the sensor name.
 #
 # (default: not specified)
-#sensor_name=myhostname
+#sensor_name=kippo
 
 # Fake address displayed as the address of the incoming connection.
 # This doesn't affect logging, and is only used by honeypot commands such as
@@ -136,12 +136,18 @@ exec_enabled = true
 # SSH-2.0-OpenSSH_5.9
 #
 # (default: "SSH-2.0-OpenSSH_5.1p1 Debian-5")
-ssh_version_string = SSH-2.0-OpenSSH_5.1p1 Debian-5
+ssh_version_string = SSH-2.0-OpenSSH_6.6p1 Ubuntu-2ubuntu1
+
+# Wget string used by outgoing wget
+wget_version_string = Wget/1.15 (linux-gnu)
+
+# Uname string
+uname_version_string = 3.13.0-24-generic #46-Ubuntu SMP Thu Apr 10 19:11:08 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
 
 # Banner file to be displayed before the first login attempt.
 #
 # (default: not specified)
-#banner_file =
+banner_file = /etc/issue.net
 
 # Session management interface.
 #
@@ -160,12 +166,12 @@ interact_port = 5123
 # To enable this module, remove the comments below, including the
 # [database_mysql] line.
 
-#[database_mysql]
-#host = localhost
-#database = kippo
-#username = kippo
-#password = secret
-#port = 3306
+[database_mysql]
+host = mysql
+database = DB_NAME
+username = DB_USERNAME
+password = DB_PASSWORD
+port = 3306
 
 # XMPP Logging
 #
@@ -198,11 +204,4 @@ interact_port = 5123
 # [database_textlog] line.
 
 #[database_textlog]
-#logfile = kippo-textlog.log
-
-# Wget string used by outgoing wget
-wget_version_string = Wget/1.15 (linux-gnu)
-
-# Uname string
-uname_version_string = "3.13.0-24-generic #46-Ubuntu SMP Thu Apr 10 19:11:08 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux"
-
+#logfile = /var/kippo/log/kippo-textlog.log
