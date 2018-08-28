@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-                                                                                             
-# Copyright (c) 2014 Peter Reuterås <peter@reuteras.com>
 # See the COPYRIGHT file for more information
 
 import os, getopt
